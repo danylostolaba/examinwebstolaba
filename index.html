@@ -1,0 +1,99 @@
+<head>
+    <title>Калькулятор валют</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url("https://images.unsplash.com/photo-1526304640581-d334cdbbf45e");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 6px;
+            margin: 8px 0;
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Калькулятор валют</h2>
+
+    Купити:
+    <select id="from">
+        <option value="uah">Гривні</option>
+        <option value="usd">Долари</option>
+        <option value="eur">Євро</option>
+    </select>
+
+    За:
+    <select id="to">
+        <option value="uah">Гривні</option>
+        <option value="usd">Долари</option>
+        <option value="eur">Євро</option>
+    </select>
+
+    Сума:
+    <input type="number" id="sum">
+
+    <p>Результат: <b id="res">0</b></p>
+</div>
+
+<script>
+    let rates = {
+        uah: 1,
+        usd: 42.22,
+        eur: 49.51
+    };
+
+    let from = document.getElementById("from");
+    let to = document.getElementById("to");
+    let sum = document.getElementById("sum");
+    let res = document.getElementById("res");
+
+    function calc() {
+        if (from.value === to.value) {
+            res.innerText = "Оберіть різні валюти";
+            return;
+        }
+
+        if (sum.value === "") {
+            res.innerText = 0;
+            return;
+        }
+
+        res.innerText = (sum.value * rates[from.value] / rates[to.value]).toFixed(2);
+    }
+
+    from.onchange = calc;
+    to.onchange = calc;
+    sum.oninput = calc;
+</script>
+
+</body>
+</html>
